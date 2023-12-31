@@ -1,3 +1,5 @@
+const { list } = require("mocha/lib/reporters/base");
+
 // Image source url
 const imgUrl = "https://dog.ceo/api/breeds/image/random/4"
 // Fetch the data in the url
@@ -36,17 +38,29 @@ fetch(breedUrl)
 
 document.querySelectorAll("li").forEach(dog => {dog.addEventListener('click', () => dog.style.color = "blue")})
 
-const dropdown = document.querySelector(".breed-container").textContent;
-dropdown.addEventListener('change', filterBreed());
+// Access the content of the dropdown
+const dropdown1 = document.querySelector("#a").textContent;
+const dropdown2 = document.querySelector("#b").textContent;
+const dropdown3 = document.querySelector("#c").textContent;
+const dropdown4 = document.querySelector("#d").textContent;
 
-const filterBreed = () => {
-    const breedList = document.querySelector("li");
-    for (let i = 0; i < breedList.length; i++){
-        let breed = breedList[i];
-        if (breed.textContent.charAt[0] === dropdown) {
-            breed.style.display = "list-item";
-        }else{
-            breed.style.display = "none";
-        }
+const list = document.querySelector("#dog-name").textContent;
+
+// Add event listener to the dropdown
+document.addEventListener('change', () => {
+    const option = list.split(" ");
+    // Create a list of the contents of the list
+    // for (let i = 0; i < list.length; i++){
+    if (dropdown1 === option.charAt[0]){
+        option.remove("hidden");
+    }else if(dropdown2 === option.charAt[0]){
+        return option;
+    }else if(dropdown3 === option.charAt[0]){
+        return option;
+    }else if(dropdown4 === option.charAt[0]){
+        return option;
+    }else{
+        return;
     }
-}
+    // }
+})
