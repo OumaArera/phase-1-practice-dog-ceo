@@ -1,4 +1,4 @@
-const { list } = require("mocha/lib/reporters/base");
+console.log('%c HI', 'color: firebrick')
 
 // Image source url
 const imgUrl = "https://dog.ceo/api/breeds/image/random/4"
@@ -20,7 +20,9 @@ let dogBreeds = [];
 // Function adds dogs to the list
 function addDogs(breedList){
     // Pushes key to the empty array
-    for(let key in breedList) {dogBreeds.push(key)}
+    for(let key in breedList) 
+        dogBreeds.push(key);
+    
     /*
     Targets the unordered list
     Create a li in the unordered list
@@ -28,39 +30,26 @@ function addDogs(breedList){
     Append li to ul
     */
     for(let breeds of dogBreeds) {let ul = document.querySelector('ul');let li = document.createElement('li');li.id = "dog-name";li.textContent = breeds;ul.append(li);}
+    document.querySelectorAll("li").forEach(dog => {dog.addEventListener('click', () => dog.style.color = "blue")});
+    const breedFilter = document.querySelector('#breed-dropdown')
+    breedFilter.addEventListener('click', () => {const selectedLetter = breedFilter.value; filterAndDisplayDogs(selectedLetter)});
 }
+
+document.getElementById('breed-dropdown').addEventListener('click', event => {selectedLetter = event.target.value;});
 // Fetches the data in the url
 fetch(breedUrl)
     // Converts the promise to json file
     .then(res => res.json())
     // Execute the addDogs function
     .then(results => addDogs(results.message))
+    .catch(err => console.log(err))
 
-document.querySelectorAll("li").forEach(dog => {dog.addEventListener('click', () => dog.style.color = "blue")})
+const filterAndDisplayDogs = selectedLetter => {
+    const ul = document.getElementById('dog-breeds');
+    ul.innerHTML = ''; // Clear the list before re-populating
+    
+    const filteredBreeds = dogBreeds.filter(breed => selectedLetter === '' || breed.startsWith(selectedLetter));
+    
+    filteredBreeds.forEach(breed => {const li = document.createElement('li'); li.textContent = breed; ul.appendChild(li);});
+}
 
-// Access the content of the dropdown
-const dropdown1 = document.querySelector("#a").textContent;
-const dropdown2 = document.querySelector("#b").textContent;
-const dropdown3 = document.querySelector("#c").textContent;
-const dropdown4 = document.querySelector("#d").textContent;
-
-const list = document.querySelector("#dog-name").textContent;
-
-// Add event listener to the dropdown
-document.addEventListener('change', () => {
-    const option = list.split(" ");
-    // Create a list of the contents of the list
-    // for (let i = 0; i < list.length; i++){
-    if (dropdown1 === option.charAt[0]){
-        option.remove("hidden");
-    }else if(dropdown2 === option.charAt[0]){
-        return option;
-    }else if(dropdown3 === option.charAt[0]){
-        return option;
-    }else if(dropdown4 === option.charAt[0]){
-        return option;
-    }else{
-        return;
-    }
-    // }
-})
